@@ -1,7 +1,7 @@
 views:
   - title: Tilty
     path: tilty
-    icon: mdi:car-brake-fluid-level
+    icon: mdi:image-filter-hdr
     type: sections
     max_columns: 2
     sections:
@@ -71,11 +71,11 @@ views:
               grid_columns: 2
               grid_rows: auto
             needle: true
-          - type: tile
+          - type: custom:mushroom-template-card
             entity: binary_sensor.tilty_van_level
-            name: Van is Level
-          - type: tile
-            entity: button.tilty_tilty_calibrate_level
-            name: 'Calibrate, last pressed:'
-            icon: mdi:image-filter-hdr-outline
-            state_content: last-changed
+            primary: Van is Level
+            secondary: '{{ ''Yes'' if is_state(entity, ''on'') else ''No'' }}'
+            icon: >-
+              {{ 'mdi:check-circle' if is_state(entity, 'on') else
+              'mdi:alert-circle' }}
+            icon_color: '{{ ''green'' if is_state(entity, ''on'') else ''red'' }}'
